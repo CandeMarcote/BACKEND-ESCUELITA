@@ -1,0 +1,5 @@
+package com.cande.punkbar.service;
+
+public interface UserService {
+
+}

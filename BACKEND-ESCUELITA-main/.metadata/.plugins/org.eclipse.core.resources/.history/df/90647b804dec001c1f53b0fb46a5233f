@@ -1,0 +1,5 @@
+package com.cande.punkbar.entity;
+
+public class User {
+
+}

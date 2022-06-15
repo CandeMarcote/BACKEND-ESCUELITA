@@ -1,0 +1,42 @@
+package com.cande.punkbar.rest;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cande.punkbar.entity.User;
+import com.cande.punkbar.service.UserService;
+
+@RestController
+@RequestMapping("/api")
+public class UserRestController {
+
+	private UserService userService;
+
+	//inject userDAO at the beginning but after we'll do it with a service
+	@Autowired
+	public UserRestController(UserService theUserService) {
+		userService = theUserService;
+	}
+	//Expose "/users" that returns a list of users
+	@GetMapping("/users")
+	public List<User> findAll(){
+		return userService.findAll();
+	}
+	
+	//add mapping for GET /users/{userId}
+	@GetMapping("/users/{usersId}")
+	public User getUser(@PathVariable int usersId) {
+		User theUser = userService.findById(usersId);
+		
+		if(theUser == null) {
+			throw new RuntimeException("User id not found: " + usersId);
+		}
+		
+		return theUser;
+	}
+}

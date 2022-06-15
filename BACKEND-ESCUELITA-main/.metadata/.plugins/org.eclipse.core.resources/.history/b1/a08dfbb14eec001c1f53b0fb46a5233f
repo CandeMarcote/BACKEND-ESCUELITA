@@ -1,0 +1,5 @@
+package com.cande.punkbar.dao;
+
+public class UserDaoImpl {
+
+}

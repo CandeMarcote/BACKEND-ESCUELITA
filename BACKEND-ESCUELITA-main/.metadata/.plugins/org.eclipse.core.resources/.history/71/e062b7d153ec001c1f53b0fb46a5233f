@@ -1,0 +1,5 @@
+package com.cande.punkbar.rest;
+
+public class UserRestController {
+
+}
