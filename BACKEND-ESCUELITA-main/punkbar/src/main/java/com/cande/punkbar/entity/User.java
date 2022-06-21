@@ -1,14 +1,21 @@
 package com.cande.punkbar.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class User {
 
 	//define fields
@@ -26,6 +33,13 @@ public class User {
 	@Column(name="password")
 	private String password;
 	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="user_favorite")
+	private List<Favorite> favorites;
+	/*private CartItem;
+	private OrderItem;*/
+	
+
 	//define constructors
 	public User() {}
 
@@ -68,6 +82,24 @@ public class User {
 		this.password = password;
 	}
 
+	public List<Favorite> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<Favorite> favorites) {
+		this.favorites = favorites;
+	}
+	
+	//convenience method for adding favorites
+	
+	public void add(Favorite favorite) {
+		if(favorites == null) {
+			favorites = new ArrayList<>();
+		}
+		
+		favorites.add(favorite);
+	}
+	
 	//define a toString method
 	@Override
 	public String toString() {

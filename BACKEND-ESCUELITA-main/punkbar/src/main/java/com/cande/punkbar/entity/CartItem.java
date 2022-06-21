@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cart")
+@Table(name="cart_item")
 public class CartItem {
 
 	@Id
@@ -25,8 +25,8 @@ public class CartItem {
 	@Column(name="category")
 	private String category;
 	
-	@Column(name="user_id")
-	private int userId;
+	@Column(name="cart_id")
+	private int cartId;
 	
 	public CartItem() {}
 
@@ -34,7 +34,7 @@ public class CartItem {
 		this.productNumber = productNumber;
 		this.quantity = quantity;
 		this.category = category;
-		this.userId = userId;
+		this.cartId = userId;
 	}
 
 	public int getId() {
@@ -69,17 +69,17 @@ public class CartItem {
 		this.category = category;
 	}
 
-	public int getUserId() {
-		return userId;
+	public int getCartId() {
+		return cartId;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setCartId(int userId) {
+		this.cartId = userId;
 	}
 
 	@Override
 	public String toString() {
 		return "CartItem [id=" + id + ", productNumber=" + productNumber + ", quantity=" + quantity + ", category="
-				+ category + ", userId=" + userId + "]";
+				+ category + ", userId=" + cartId + "]";
 	}
 }

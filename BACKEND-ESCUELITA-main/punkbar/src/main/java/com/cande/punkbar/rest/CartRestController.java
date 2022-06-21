@@ -11,7 +11,7 @@ import com.cande.punkbar.dao.CartItemDAO;
 import com.cande.punkbar.entity.CartItem;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class CartRestController {
 
 	private CartItemDAO cartItemDao;

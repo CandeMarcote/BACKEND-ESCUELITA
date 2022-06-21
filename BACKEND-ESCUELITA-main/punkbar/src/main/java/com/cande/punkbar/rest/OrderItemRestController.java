@@ -11,7 +11,7 @@ import com.cande.punkbar.dao.OrderItemDAO;
 import com.cande.punkbar.entity.OrderItem;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class OrderItemRestController {
 
 	private OrderItemDAO orderItemDao;

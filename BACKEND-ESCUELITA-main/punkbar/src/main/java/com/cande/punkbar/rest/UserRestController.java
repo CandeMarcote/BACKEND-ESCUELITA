@@ -3,6 +3,7 @@ package com.cande.punkbar.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,7 @@ import com.cande.punkbar.entity.User;
 import com.cande.punkbar.service.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class UserRestController {
 
 	private UserService userService;
@@ -27,6 +28,7 @@ public class UserRestController {
 		userService = theUserService;
 	}
 	//Expose "/users" that returns a list of users
+	@CrossOrigin
 	@GetMapping("/users")
 	public List<User> findAll(){
 		return userService.findAll();

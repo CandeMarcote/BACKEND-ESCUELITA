@@ -3,12 +3,14 @@ package com.cande.punkbar.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cande.punkbar.entity.Favorite;
@@ -17,7 +19,7 @@ import com.cande.punkbar.service.FavoriteService;
 import com.cande.punkbar.service.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class FavoriteRestController {
 
 	private FavoriteService favoriteService;
@@ -29,13 +31,14 @@ public class FavoriteRestController {
 		userService = theUserService;
 	}
 	
-	@GetMapping("/favorites")
+	@GetMapping(value="/favorites")
+	@CrossOrigin
 	public List<Favorite> findAll() {
 		return favoriteService.findAll();
 	}
 	
-	@GetMapping("/favorites/{favoriteId}")
-	public Favorite getFavorite(@PathVariable int favoriteId) {
+	@GetMapping(value="/favorite/{favoriteid}")
+	public Favorite getFavorite(@RequestParam("fav") int favoriteId) {
 		Favorite theFavorite = favoriteService.findById(favoriteId);
 		
 		if(theFavorite == null) {
@@ -52,7 +55,7 @@ public class FavoriteRestController {
 		return theFavorite;
 	}
 	
-	@DeleteMapping("/users/{userId}/favorites/{favoriteId}")
+	@DeleteMapping("/users/{userId}/favorite/{favoriteId}")
 	public String deleteFavorite(@PathVariable int favoriteId, @PathVariable int userId) {
 		Favorite theFavorite = favoriteService.findById(favoriteId);
 		User theUser = userService.findById(userId);
@@ -62,6 +65,6 @@ public class FavoriteRestController {
 		
 		favoriteService.deleteById(favoriteId);
 		
-		return "Favorite (id: " + favoriteId + ") deleted! user: " + userId;
+		return "Favorite (id: " + favoriteId + ") deleted! user: " + theUser.getUsername() + " " + userId;
 	}
 }

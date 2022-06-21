@@ -5,10 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="favorites")
+@Table(name="favorite")
 public class Favorite {
 
 	//define fields
@@ -23,19 +25,24 @@ public class Favorite {
 	@Column(name="category")
 	private String category;
 	
+	@Column(name="name")
+	private String name;
+	
 	@Column(name="user_id")
 	private int userId;
 	
 	//define constructors
 	public Favorite() {}
 
-	public Favorite(int produtctNumber, String category, int userId) {
-		this.productNumber = produtctNumber;
+
+	public Favorite(int productNumber, String category, String name, int userId) {
+		this.productNumber = productNumber;
 		this.category = category;
+		this.name = name;
 		this.userId = userId;
 	}
-	
-	
+
+
 	//define getters and setters
 
 	public int getId() {
@@ -46,12 +53,12 @@ public class Favorite {
 		this.id = id;
 	}
 
-	public int getProdutctNumber() {
+	public int getProductNumber() {
 		return productNumber;
 	}
 
-	public void setProdutctNumber(int produtctNumber) {
-		this.productNumber = produtctNumber;
+	public void setProductNumber(int productNumber) {
+		this.productNumber = productNumber;
 	}
 
 	public String getCategory() {
@@ -62,19 +69,28 @@ public class Favorite {
 		this.category = category;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getUserId() {
 		return userId;
 	}
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
+	}	
 	
 	//define a toString method
 
 	@Override
 	public String toString() {
-		return "Favorite [id=" + id + ", produtctNumber=" + productNumber + ", category=" + category + ", userId=" + userId
-				+ "]";
+		return "Favorite [id=" + id + ", productNumber=" + productNumber + ", category=" + category + ", name=" + name
+				+ ", userId=" + userId + "]";
 	}
+
 }
