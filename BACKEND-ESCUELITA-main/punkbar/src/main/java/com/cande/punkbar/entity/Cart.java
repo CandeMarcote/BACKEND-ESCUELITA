@@ -1,14 +1,10 @@
 package com.cande.punkbar.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,18 +19,22 @@ public class Cart {
 	@Column(name="user_id")
 	private int userId;
 	
-	@Column(name="finished")
-	private boolean finished;
+	@Column(name="product_id")
+	private int productId;
 	
-	@OneToMany
-	//@JoinColumn(name="cartId")
-	private List<CartItem> cartItems;
+	@Column(name="amount")
+	private int amount;
+	
+	@Column(name="type")
+	private String type;
 	
 	public Cart() {}
 
-	public Cart(int userId, boolean finished) {
+	public Cart(int userId, int productId, int amount, String type) {
 		this.userId = userId;
-		this.finished = finished;
+		this.productId = productId;
+		this.amount = amount;
+		this.type = type;
 	}
 
 	public int getId() {
@@ -53,17 +53,33 @@ public class Cart {
 		this.userId = userId;
 	}
 
-	public boolean isFinished() {
-		return finished;
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setFinished(boolean finished) {
-		this.finished = finished;
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
 	public String toString() {
-		return "Cart [id=" + id + ", userId=" + userId + ", finished=" + finished + "]";
+		return "Cart [id=" + id + ", userId=" + userId + ", productId=" + productId + ", amount=" + amount + ", type="
+				+ type + "]";
 	}
-	
 }

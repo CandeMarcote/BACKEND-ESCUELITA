@@ -19,7 +19,7 @@ import com.cande.punkbar.service.FavoriteService;
 import com.cande.punkbar.service.UserService;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/favorites")
 public class FavoriteRestController {
 
 	private FavoriteService favoriteService;
@@ -31,14 +31,15 @@ public class FavoriteRestController {
 		userService = theUserService;
 	}
 	
-	@GetMapping(value="/favorites")
+	@GetMapping(value="/")
 	@CrossOrigin
 	public List<Favorite> findAll() {
 		return favoriteService.findAll();
 	}
 	
-	@GetMapping(value="/favorite/{favoriteid}")
-	public Favorite getFavorite(@RequestParam("fav") int favoriteId) {
+	@GetMapping(value="/{favoriteId}")
+	@CrossOrigin
+	public Favorite getFavorite(@PathVariable int favoriteId) {
 		Favorite theFavorite = favoriteService.findById(favoriteId);
 		
 		if(theFavorite == null) {
@@ -48,7 +49,8 @@ public class FavoriteRestController {
 		return theFavorite;
 	}
 	
-	@PostMapping("/favorites")
+	@PostMapping("/")
+	@CrossOrigin
 	public Favorite addFavorite(@RequestBody Favorite theFavorite) {
 		//theFavorite.setId(0);
 		favoriteService.save(theFavorite);
@@ -56,6 +58,7 @@ public class FavoriteRestController {
 	}
 	
 	@DeleteMapping("/users/{userId}/favorite/{favoriteId}")
+	@CrossOrigin
 	public String deleteFavorite(@PathVariable int favoriteId, @PathVariable int userId) {
 		Favorite theFavorite = favoriteService.findById(favoriteId);
 		User theUser = userService.findById(userId);

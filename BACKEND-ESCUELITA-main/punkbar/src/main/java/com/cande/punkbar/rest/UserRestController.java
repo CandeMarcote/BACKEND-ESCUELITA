@@ -1,6 +1,7 @@
 package com.cande.punkbar.rest;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -58,10 +59,25 @@ public class UserRestController {
 		return theUser;
 	}
 	
+	//consulting the user login
+	@PostMapping("/login")
+	public int validateUser(@RequestBody User theUser){
+		Optional<User> user = userService.findByUsernameOrEmailAndPassword(
+				theUser.getUsername(), theUser.getEmail(), theUser.getPassword());
+		
+		if(user.isPresent()) {
+			return user.get().getId();
+		}
+		else {
+			return -1;
+		}
+	}
+	
 	// add mapping for updating users
 	
 	@PutMapping("/users")
 	public User updateUser(@RequestBody User theUser) {
+		//pasar id
 		userService.save(theUser);
 		return theUser;
 	}

@@ -69,11 +69,11 @@ public class Favorite {
 		this.category = category;
 	}
 
-	public String getName() {
+	public String getname() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setname(String name) {
 		this.name = name;
 	}
 

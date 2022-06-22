@@ -1,46 +1,57 @@
 package com.cande.punkbar.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cande.punkbar.dao.UserDAO;
+import com.cande.punkbar.dao.UserRespository;
 import com.cande.punkbar.entity.User;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-	private UserDAO userDAO;
+	private UserRespository userRespository;
 	
 	@Autowired
-	public UserServiceImpl(UserDAO theUserDAO) {
-		userDAO = theUserDAO;
+	public UserServiceImpl(UserRespository theUserRespository) {
+		userRespository = theUserRespository;
 	}
 	
 	@Override
-	@Transactional
 	public List<User> findAll() {
-		return userDAO.findAll();
+		return userRespository.findAll();
 	}
 
 	@Override
-	@Transactional
 	public User findById(int theId) {
-		return userDAO.findById(theId);
+		Optional<User> result = userRespository.findById(theId);
+		User theUser = null;
+		if(result.isPresent()) {
+			theUser = result.get();
+		}
+		else {
+			throw new RuntimeException("user id not found");
+		}
+		return theUser;
 	}
 
 	@Override
-	@Transactional
 	public void save(User theUser) {
-		userDAO.save(theUser);
+		userRespository.save(theUser);
 	}
 
 	@Override
-	@Transactional
 	public void deleteById(int theId) {
-		userDAO.deleteById(theId);
+		userRespository.deleteById(theId);
+	}
+
+	@Override
+	public Optional<User> findByUsernameOrEmailAndPassword(String theUsername, String theEmail, String thePassword) {
+		Optional<User> theUser = userRespository.findByUsernameOrEmailAndPassword(theUsername, theEmail, thePassword);
+		return theUser;
 	}
 
 }
