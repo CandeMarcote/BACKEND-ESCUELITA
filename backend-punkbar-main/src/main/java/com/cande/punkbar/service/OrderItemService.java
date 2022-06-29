@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cande.punkbar.dao.OrderItemRepository;
+import com.cande.punkbar.dao.IOrderItemRepository;
 import com.cande.punkbar.entity.OrderItem;
 
 @Service
-public class OrderItemServiceImpl {
+public class OrderItemService {
 
 	@Autowired
-	private OrderItemRepository orderItemRepository;
+	private IOrderItemRepository orderItemRepository;
 	
 	public List<OrderItem> findAll() {
 		List<OrderItem> theOrderItems = orderItemRepository.findAll();

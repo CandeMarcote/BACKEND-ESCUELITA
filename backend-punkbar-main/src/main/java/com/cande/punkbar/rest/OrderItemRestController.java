@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cande.punkbar.dao.CartItemRepository;
-import com.cande.punkbar.dao.OrderItemRepository;
-import com.cande.punkbar.dao.OrderRepository;
+import com.cande.punkbar.dao.ICartItemRepository;
+import com.cande.punkbar.dao.IOrderItemRepository;
+import com.cande.punkbar.dao.IOrderRepository;
 import com.cande.punkbar.entity.CartItem;
 import com.cande.punkbar.entity.Order;
 import com.cande.punkbar.entity.OrderItem;
@@ -21,11 +21,11 @@ import com.cande.punkbar.entity.OrderItem;
 public class OrderItemRestController {
 
 	@Autowired
-	private OrderItemRepository orderItemService;
+	private IOrderItemRepository orderItemService;
 	@Autowired
-	private CartItemRepository cartItemService;
+	private ICartItemRepository cartItemService;
 	@Autowired
-	private OrderRepository orderService;
+	private IOrderRepository orderService;
 	
 	@PostMapping("/place_order")
 	@CrossOrigin

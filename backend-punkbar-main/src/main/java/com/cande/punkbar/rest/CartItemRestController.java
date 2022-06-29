@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cande.punkbar.dao.CartItemRepository;
+import com.cande.punkbar.dao.ICartItemRepository;
 import com.cande.punkbar.entity.CartItem;
 
 @RestController
@@ -21,7 +21,7 @@ import com.cande.punkbar.entity.CartItem;
 public class CartItemRestController {
 
 	@Autowired
-	private CartItemRepository cartItemService;
+	private ICartItemRepository cartItemService;
 	
 	@GetMapping("/{userId}/all")
 	@CrossOrigin

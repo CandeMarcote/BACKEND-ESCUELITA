@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cande.punkbar.dao.CartItemRepository;
+import com.cande.punkbar.dao.ICartItemRepository;
 import com.cande.punkbar.entity.CartItem;
 
 @Service
-public class CartItemServiceImpl {
+public class CartItemService {
 	
 	@Autowired
-	private CartItemRepository cartItemRepository;
+	private ICartItemRepository cartItemRepository;
 
 	public void save(CartItem theCartItem) {
 		theCartItem.setId(0);

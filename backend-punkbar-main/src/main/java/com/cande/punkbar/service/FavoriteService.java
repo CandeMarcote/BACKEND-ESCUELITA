@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cande.punkbar.dao.FavoriteRepository;
+import com.cande.punkbar.dao.IFavoriteRepository;
 import com.cande.punkbar.entity.Favorite;
 
 @Service
-public class FavoriteServiceImpl {
+public class FavoriteService {
 
 	@Autowired
-	private FavoriteRepository favoriteRepository;
+	private IFavoriteRepository favoriteRepository;
 	
 	public List<Favorite> findAllByUserId(int userId) {
 		return favoriteRepository.findAllByUserId(userId);

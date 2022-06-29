@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cande.punkbar.entity.Order;
-import com.cande.punkbar.dao.OrderRepository;
+import com.cande.punkbar.dao.IOrderRepository;
 
 @RestController
 @RequestMapping("/orders")
 public class OrderRestController {
 
 	@Autowired
-	private OrderRepository orderService;
+	private IOrderRepository orderService;
 	
 	@GetMapping(value="/")
 	@CrossOrigin

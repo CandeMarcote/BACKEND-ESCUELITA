@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cande.punkbar.entity.Order;
 
-public interface OrderRepository extends JpaRepository<Order, Integer> {
+public interface IOrderRepository extends JpaRepository<Order, Integer> {
 
 }

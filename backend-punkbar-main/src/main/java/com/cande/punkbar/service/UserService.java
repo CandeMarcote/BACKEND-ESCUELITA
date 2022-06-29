@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cande.punkbar.dao.UserRespository;
+import com.cande.punkbar.dao.IUserRespository;
 import com.cande.punkbar.entity.User;
 
 @Service
-public class UserServiceImpl {
+public class UserService {
 
 	
 	@Autowired
-	private UserRespository userRespository;
+	private IUserRespository userRespository;
 	
 	public List<User> findAll() {
 		return userRespository.findAll();

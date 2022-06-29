@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cande.punkbar.entity.User;
-import com.cande.punkbar.dao.UserRespository;
+import com.cande.punkbar.dao.IUserRespository;
 
 @RestController
 @RequestMapping("/users")
@@ -23,7 +23,7 @@ import com.cande.punkbar.dao.UserRespository;
 public class UserRestController {
 
 	@Autowired
-	private UserRespository userService;
+	private IUserRespository userService;
 
 	//Expose "/users" that returns a list of users
 	@CrossOrigin
@@ -98,5 +98,20 @@ public class UserRestController {
 		
 		userService.deleteById(userId);
 		return "Deleted user id - " + userId;
+	}
+	
+	@PostMapping("/llogin")
+	public int valiidateUser(@RequestBody User theUser){
+		Optional<User> user = userService.findByUsernameOrEmailAndPassword(
+				theUser.getUsername(), theUser.getEmail(), theUser.getPassword());
+		int id = -1;
+		if(user.isPresent()) {
+			
+			if(user.get().getPassword().equals(theUser.getPassword())) {
+				
+				id = user.get().getId();
+			}
+		}
+		return id;
 	}
 }

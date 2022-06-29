@@ -15,23 +15,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cande.punkbar.entity.Favorite;
-import com.cande.punkbar.dao.FavoriteRepository;
+import com.cande.punkbar.dao.IFavoriteRepository;
 
 @RestController
 @RequestMapping("/favorites")
+@CrossOrigin
 public class FavoriteRestController {
 
 	@Autowired
-	private FavoriteRepository favoriteService;
+	private IFavoriteRepository favoriteService;
 	
-	@GetMapping("/")
-	@CrossOrigin
-	public List<Favorite> findAllByUserId(@RequestParam int userId) {
+	@GetMapping("/{userId}")
+	public List<Favorite> findAllByUserId(@PathVariable int userId) {
 		return favoriteService.findAllByUserId(userId);
 	}
 	
 	@PostMapping("/")
-	@CrossOrigin
 	public String addFavorite(@RequestBody Favorite theFavorite) {
 		theFavorite.setId(0);
 		Optional<Favorite> existingFavorite = favoriteService.findByProductNumberAndCategoryAndUserId(theFavorite.getProductNumber(), theFavorite.getCategory(), theFavorite.getUserId());
@@ -43,7 +42,6 @@ public class FavoriteRestController {
 	}
 	
 	@DeleteMapping("/{userId}")
-	@CrossOrigin
 	public String deleteFavorite(@RequestBody Favorite theFavorite, @PathVariable int userId) {
 		theFavorite.setId(0);
 		Optional<Favorite> existingFavorite = favoriteService.findByProductNumberAndCategoryAndUserId(theFavorite.getProductNumber(), theFavorite.getCategory(), userId);
