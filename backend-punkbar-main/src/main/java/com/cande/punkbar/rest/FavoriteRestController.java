@@ -52,5 +52,10 @@ public class FavoriteRestController {
 		return "favorite removed";
 	}
 	
+	@DeleteMapping("/{userId}/all")
+	public String deleteAllById(@PathVariable int userId) {
+		favoriteService.deleteAllById(userId);
+		return "all favorites deleted";
+	}
 	
 }

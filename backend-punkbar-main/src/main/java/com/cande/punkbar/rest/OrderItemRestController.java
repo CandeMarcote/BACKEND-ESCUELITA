@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cande.punkbar.dao.ICartItemRepository;
@@ -27,13 +27,12 @@ public class OrderItemRestController {
 	@Autowired
 	private IOrderRepository orderService;
 	
-	@PostMapping("/place_order")
+	@PostMapping("/place_order/{userId}")
 	@CrossOrigin
-	public String addOrderItem(@RequestParam int userId) {
+	public String addOrderItem(@PathVariable int userId) {
 		Order theOrder = new Order();
 		theOrder.setUserId(userId);
 		orderService.save(theOrder);
-		
 		
 		List<CartItem> cartItems = cartItemService.findAllByUserId(userId);
 		

@@ -12,4 +12,6 @@ public interface IFavoriteRepository extends JpaRepository<Favorite, Integer> {
 	public Optional<Favorite> findByProductNumberAndCategoryAndUserId(int theProductNumber, String theCategory, int theUserId);
 	
 	public List<Favorite> findAllByUserId(int theUserId);
+
+	public void deleteAllById(int userId);
 }

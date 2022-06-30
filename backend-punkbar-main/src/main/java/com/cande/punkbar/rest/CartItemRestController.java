@@ -50,11 +50,15 @@ public class CartItemRestController {
 		return "deleted";
 	}
 	
-	@DeleteMapping("/deleteAll")
+	@DeleteMapping("/deleteAll/{userId}")
 	@CrossOrigin
-	public String deleteAll() {
-		cartItemService.deleteAll();
-		return "the cart is empty";
+	public String deleteAllByUserId(@PathVariable int userId) {
+		
+		List<CartItem> theCartItems = cartItemService.findAllByUserId(userId);
+		for(int i = 0; i < theCartItems.size(); i++) {
+			cartItemService.delete(theCartItems.get(i));
+		}
+		return "all deleted";
 	}
 	
 	@PutMapping("/{userId}")

@@ -40,6 +40,10 @@ public class FavoriteService {
 	public void deleteById(int theId) {
 		favoriteRepository.deleteById(theId);
 	}
+	
+	public void deleteAllById(int userId) {
+		favoriteRepository.deleteAllById(userId);
+	}
 
 	public Optional<Favorite> findByProductNumberAndCategoryAndUserId(int theProductNumber, String theCategory, int userId) {
 		Optional<Favorite> theFavorite = favoriteRepository.findByProductNumberAndCategoryAndUserId(theProductNumber, theCategory, userId);

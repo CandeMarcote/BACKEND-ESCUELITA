@@ -24,8 +24,8 @@ public class CartItemService {
 		
 	}
 	
-	public void deleteAll() {
-		cartItemRepository.deleteAll();		
+	public void deleteAllByUserId(int userId) {
+		cartItemRepository.deleteAllByUserId(userId);		
 	}
 
 	public List<CartItem> findAllByUserId(int theUserId) {
