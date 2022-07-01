@@ -24,25 +24,6 @@ public class UserRestController {
 
 	@Autowired
 	private IUserRespository userService;
-
-	//Expose "/users" that returns a list of users
-	@CrossOrigin
-	@GetMapping("/")
-	public List<User> findAll(){
-		return userService.findAll();
-	}
-	
-	//add mapping for GET /users/{userId}
-	@GetMapping("/{userId}")
-	public Optional<User> getUser(@PathVariable int userId) {
-		Optional<User> theUser = userService.findById(userId);
-		
-		if(theUser == null) {
-			throw new RuntimeException("User id not found: " + userId);
-		}
-		
-		return theUser;
-	}
 	
 	//adding mapping for POST /users - add new users
 	@PostMapping("/")
@@ -76,42 +57,4 @@ public class UserRestController {
 		return userTemp;
 	}
 
-	
-	// add mapping for updating users
-	
-	@PutMapping("/{id}")
-	//buena practica: pasar el id como variable y para el post, delete tambien
-	public User updateUser(@RequestBody User theUser, @PathVariable int userId) {
-		userService.save(theUser);
-		return theUser;
-	}
-	
-	@DeleteMapping("/{userId}")
-	public String deleteUser(@PathVariable int userId) {
-		
-		Optional<User> theUser = userService.findById(userId);
-		
-		//throw exception if null
-		if(theUser == null) {
-			throw new RuntimeException("User id not found - " + userId);
-		}
-		
-		userService.deleteById(userId);
-		return "Deleted user id - " + userId;
-	}
-	
-	@PostMapping("/llogin")
-	public int valiidateUser(@RequestBody User theUser){
-		Optional<User> user = userService.findByUsernameOrEmailAndPassword(
-				theUser.getUsername(), theUser.getEmail(), theUser.getPassword());
-		int id = -1;
-		if(user.isPresent()) {
-			
-			if(user.get().getPassword().equals(theUser.getPassword())) {
-				
-				id = user.get().getId();
-			}
-		}
-		return id;
-	}
 }

@@ -31,7 +31,7 @@ public class OrderItemRestController {
 	
 	@PostMapping("/place_order/{userId}")
 	@CrossOrigin
-	public List<CartItem> addOrderItem(@PathVariable int userId) {
+	public String addOrderItem(@PathVariable int userId) {
 		Calendar calendar = new GregorianCalendar();
 		Order theOrder = new Order();
 		theOrder.setUserId(userId);
@@ -47,9 +47,10 @@ public class OrderItemRestController {
 			theOrderItem.setProductNumber(cartItem.getProductNumber());
 			theOrderItem.setOrderId(theOrder.getId());
 			orderItemService.save(theOrderItem);
+			cartItemService.delete(cartItem);
 		}
+
 		
-		
-		return cartItems;
+		return "Order added and items from cart deleted";
 	}
 }
