@@ -1,5 +1,7 @@
 package com.cande.punkbar.rest;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,26 +29,27 @@ public class OrderItemRestController {
 	@Autowired
 	private IOrderRepository orderService;
 	
-	@PostMapping("/place_order/{userId}/{orderNumber}")
+	@PostMapping("/place_order/{userId}")
 	@CrossOrigin
-	public String addOrderItem(@PathVariable int userId, @PathVariable String orderNumber) {
+	public List<CartItem> addOrderItem(@PathVariable int userId) {
+		Calendar calendar = new GregorianCalendar();
 		Order theOrder = new Order();
 		theOrder.setUserId(userId);
-		theOrder.setOrderNumber(orderNumber);
+		theOrder.setOrderNumber(calendar.getTimeInMillis());
 		orderService.save(theOrder);
 		
 		List<CartItem> cartItems = cartItemService.findAllByUserId(userId);
 		
-		for(int i = 0; i < cartItems.size(); i++) {
+		for (CartItem cartItem : cartItems) {
 			OrderItem theOrderItem = new OrderItem();
-			theOrderItem.setAmount(cartItems.get(i).getAmount());
-			theOrderItem.setCategory(cartItems.get(i).getCategory());
-			theOrderItem.setProductNumber(cartItems.get(i).getProductNumber());
+			theOrderItem.setAmount(cartItem.getAmount());
+			theOrderItem.setCategory(cartItem.getCategory());
+			theOrderItem.setProductNumber(cartItem.getProductNumber());
 			theOrderItem.setOrderId(theOrder.getId());
 			orderItemService.save(theOrderItem);
 		}
 		
 		
-		return "added sucessfully";
+		return cartItems;
 	}
 }

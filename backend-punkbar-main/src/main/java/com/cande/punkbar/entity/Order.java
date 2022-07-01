@@ -21,7 +21,7 @@ public class Order {
 	private int userId;
 	
 	@Column(name="order_number")
-	private String orderNumber;
+	private long orderNumber;
 
 	public Order() {
 	}
@@ -42,12 +42,13 @@ public class Order {
 		this.userId = userId;
 	}
 
-	public String getOrderNumber() {
+	public long getOrderNumber() {
 		return orderNumber;
 	}
 
-	public void setOrderNumber(String orderNumber2) {
-		this.orderNumber = orderNumber2;
+	public void setOrderNumber(long orderNumber) {
+		this.orderNumber = orderNumber;
 	}
+
 	
 }
