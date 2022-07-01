@@ -19,12 +19,11 @@ public class Order {
 	
 	@JoinTable(name="user")
 	private int userId;
+	
+	@Column(name="order_number")
+	private String orderNumber;
 
 	public Order() {
-	}
-
-	public Order(int userId) {
-		this.userId = userId;
 	}
 
 	public int getId() {
@@ -43,9 +42,12 @@ public class Order {
 		this.userId = userId;
 	}
 
-	@Override
-	public String toString() {
-		return "Order [id=" + id + ", userId=" + userId + "]";
+	public String getOrderNumber() {
+		return orderNumber;
 	}
 
+	public void setOrderNumber(String orderNumber2) {
+		this.orderNumber = orderNumber2;
+	}
+	
 }

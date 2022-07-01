@@ -27,11 +27,12 @@ public class OrderItemRestController {
 	@Autowired
 	private IOrderRepository orderService;
 	
-	@PostMapping("/place_order/{userId}")
+	@PostMapping("/place_order/{userId}/{orderNumber}")
 	@CrossOrigin
-	public String addOrderItem(@PathVariable int userId) {
+	public String addOrderItem(@PathVariable int userId, @PathVariable String orderNumber) {
 		Order theOrder = new Order();
 		theOrder.setUserId(userId);
+		theOrder.setOrderNumber(orderNumber);
 		orderService.save(theOrder);
 		
 		List<CartItem> cartItems = cartItemService.findAllByUserId(userId);
