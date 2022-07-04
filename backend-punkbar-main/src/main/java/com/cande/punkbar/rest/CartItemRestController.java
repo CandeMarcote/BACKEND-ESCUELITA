@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cande.punkbar.dao.ICartItemRepository;
 import com.cande.punkbar.entity.CartItem;
+import com.cande.punkbar.entity.OrderItem;
 
 @RestController
 @RequestMapping("/cartItems")
@@ -34,10 +35,23 @@ public class CartItemRestController {
 	@PostMapping("/{userId}")
 	@CrossOrigin
 	public CartItem addCartItem(@RequestBody CartItem theCartItem, @PathVariable int userId) {
+		List<CartItem> cartItems = cartItemService.findAllByUserId(userId);
 		
-		theCartItem.setId(0);
-		theCartItem.setUserId(userId);
-		cartItemService.save(theCartItem);
+		//update amount
+		for(CartItem cartItem : cartItems) {
+			if((theCartItem.getProductNumber() == cartItem.getProductNumber()) && theCartItem.getCategory().equals(cartItem.getCategory())) {
+				cartItem.setAmount(theCartItem.getAmount());
+				cartItemService.deleteById(cartItem.getId());
+			}
+		}
+		
+		//delete product if amount is lower than 0
+		if(theCartItem.getAmount() > 0) {
+			theCartItem.setId(0);
+			theCartItem.setUserId(userId);
+			cartItemService.save(theCartItem);
+		}
+		
 		return theCartItem;
 	}
 	
